@@ -1,49 +1,74 @@
 $(document).ready(function () {
 
-    var characterSelection = false;
+    var characterStats = {
+
+        attackHP: "TEST",
+        attackAP: "",
+        attackCAP: ""
+
+    };
+
+    var enemyStats = {
+        enemyHP: "",
+        enemyAP: "",
+        enemyCAP: ""
+    };
+
+    var test =
 
 
 
-    $("#character-select .card").on("click", SelectCharacter
 
 
-        // $(this).addClass("bg-success");
+        $(document).on("click", "#character-select .preselect", function () {
+            selectCharacter(this);
+            console.log(characterStats.attackHP);
+            console.log(characterStats.attackAP);
+            console.log(characterStats.attackCAP);
 
-        // $(".card").not(this).addClass("bg-danger");
-        // $(".card").not(this).removeClass("preselect");
-
-        // $("#select-enemies").append($(".bg-danger"));
-        // $(".card").off("click",function(){});
-        // console.log(characterSelection);
-
-    )
+        });
 
     $(document).on("click", "#select-enemies .bg-danger", function () {
 
-        // $("#select-enemies .bg-danger").on("click", function(){
-        console.log("DANGER ON CLICK");
-        $(this).removeClass(".bg-danger");
-        $(this).addClass(".bg-dark");
-        $("#select-defender").append($(this));
 
-        // })
+        selectEnemy(this);
+        console.log(enemyStats.enemyHP);
+        console.log(enemyStats.enemyAP);
+        console.log(enemyStats.enemyCAP);
 
     })
 
+
+    function attackButton() {
+
+    }
+
+    function selectEnemy(enemy) {
+
+        console.log("DANGER ON CLICK");
+        $(enemy).removeClass(".bg-danger");
+        $(enemy).addClass(".bg-dark");
+        $("#select-defender").append($(enemy));
+        $("#defender-title").text("Defender");
+        enemyStats.enemyHP = $(enemy).attr("data-hp");
+        enemyStats.enemyAP = $(enemy).attr("data-ap");
+        enemyStats.enemyCAP = $(enemy).attr("data-cap");
+
+    }
+
+
+    function selectCharacter(character) {
+
+        $(character).addClass("bg-success");
+        $(".card").not(character).addClass("bg-danger");
+        $(".card").removeClass("preselect");
+        $("#select-enemies").append($(".bg-danger"));
+        characterStats.attackHP = $(character).attr("data-hp");
+        characterStats.attackAP = $(character).attr("data-ap");
+        characterStats.attackCAP = $(character).attr("data-cap");
+
+
+    }
+
+
 })
-
-
-function SelectCharacter() {
-
-    $(this).addClass("bg-success");
-
-    $(".card").not(this).addClass("bg-danger");
-    $(".card").not(this).removeClass("preselect");
-
-    $("#select-enemies").append($(".bg-danger"));
-    $(".card").off("click", SelectCharacter);
-
-
-
-
-}
