@@ -2,8 +2,9 @@ $(document).ready(function () {
 
     var characterStats = {
 
-        attackHP: "TEST",
+        attackHP: "",
         attackAP: "",
+        attackBaseAP: "",
         attackCAP: ""
 
     };
@@ -14,19 +15,17 @@ $(document).ready(function () {
         enemyCAP: ""
     };
 
-    var test =
+
+    $(document).on("click", "#character-select .preselect", function () {
+        selectCharacter(this);
+        console.log(this);
+        console.log(characterStats.attackHP);
+        console.log(characterStats.attackAP);
+        console.log(characterStats.attackCAP);
+        // $("#selected-character").text(characterStats.attackHP);
 
 
-
-
-
-        $(document).on("click", "#character-select .preselect", function () {
-            selectCharacter(this);
-            console.log(characterStats.attackHP);
-            console.log(characterStats.attackAP);
-            console.log(characterStats.attackCAP);
-
-        });
+    });
 
     $(document).on("click", "#select-enemies .bg-danger", function () {
 
@@ -36,11 +35,29 @@ $(document).ready(function () {
         console.log(enemyStats.enemyAP);
         console.log(enemyStats.enemyCAP);
 
-    })
+    });
+
+    $("#attack-button").on("click", function(){
+        attackButton();
+        console.log("Enemy HP " + enemyStats.enemyHP);
+        console.log("Enemy CAP " + enemyStats.enemyCAP);
+        console.log("character HP " + characterStats.attackHP);
+        console.log("Character AP " + characterStats.attackAP);
+    });
 
 
     function attackButton() {
 
+        //Converting the strings to ints so they can be updated
+        enemyStats.enemyHP = parseInt(enemyStats.enemyHP);
+        enemyStats.enemyCAP = parseInt(enemyStats.enemyCAP);
+        characterStats.attackHP = parseInt(characterStats.attackHP);
+        characterStats.attackBaseAP = parseInt(characterStats.attackBaseAP);
+        characterStats.attackAP = parseInt(characterStats.attackAP);
+
+        enemyStats.enemyHP = (enemyStats.enemyHP - characterStats.attackAP);
+        characterStats.attackHP = (characterStats.attackHP - enemyStats.enemyCAP);
+        characterStats.attackAP = (characterStats.attackAP + characterStats.attackBaseAP);
     }
 
     function selectEnemy(enemy) {
@@ -60,11 +77,13 @@ $(document).ready(function () {
     function selectCharacter(character) {
 
         $(character).addClass("bg-success");
+        $(character).attr("id", "selected-character");
         $(".card").not(character).addClass("bg-danger");
         $(".card").removeClass("preselect");
         $("#select-enemies").append($(".bg-danger"));
         characterStats.attackHP = $(character).attr("data-hp");
         characterStats.attackAP = $(character).attr("data-ap");
+        characterStats.attackBaseAP = $(character).attr("data-ap");
         characterStats.attackCAP = $(character).attr("data-cap");
 
 
