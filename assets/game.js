@@ -15,6 +15,8 @@ $(document).ready(function () {
         enemyCAP: ""
     };
 
+    var enemyChosen;
+
 
     $(document).on("click", "#character-select .preselect", function () {
         selectCharacter(this);
@@ -31,18 +33,26 @@ $(document).ready(function () {
 
 
         selectEnemy(this);
+        enemyChosen = (this);
+        console.log(enemyChosen);
         console.log(enemyStats.enemyHP);
         console.log(enemyStats.enemyAP);
         console.log(enemyStats.enemyCAP);
 
     });
 
-    $("#attack-button").on("click", function(){
+    $(document).on("click", "#attack-button", function () {
         attackButton();
         console.log("Enemy HP " + enemyStats.enemyHP);
         console.log("Enemy CAP " + enemyStats.enemyCAP);
         console.log("character HP " + characterStats.attackHP);
         console.log("Character AP " + characterStats.attackAP);
+
+        if (enemyStats.enemyHP <= 0){
+            $(enemyChosen).detach();
+
+        }
+    
     });
 
 
@@ -58,9 +68,14 @@ $(document).ready(function () {
         enemyStats.enemyHP = (enemyStats.enemyHP - characterStats.attackAP);
         characterStats.attackHP = (characterStats.attackHP - enemyStats.enemyCAP);
         characterStats.attackAP = (characterStats.attackAP + characterStats.attackBaseAP);
+
     }
 
     function selectEnemy(enemy) {
+
+        // enemyStats.enemyHP = "";
+        // enemyStats.enemyCAP = "";
+        // enemyStats.enemyAP = "";
 
         console.log("DANGER ON CLICK");
         $(enemy).removeClass(".bg-danger");
@@ -70,6 +85,7 @@ $(document).ready(function () {
         enemyStats.enemyHP = $(enemy).attr("data-hp");
         enemyStats.enemyAP = $(enemy).attr("data-ap");
         enemyStats.enemyCAP = $(enemy).attr("data-cap");
+        
 
     }
 
