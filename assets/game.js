@@ -17,6 +17,8 @@ $(document).ready(function () {
 
     var enemyChosen;
 
+    var UpdateCharacterHp = "";
+
 
     $(document).on("click", "#character-select .preselect", function () {
         selectCharacter(this);
@@ -24,6 +26,9 @@ $(document).ready(function () {
         console.log(characterStats.attackHP);
         console.log(characterStats.attackAP);
         console.log(characterStats.attackCAP);
+        $(this).find("#display-hp").text(characterStats.attackHP);
+        console.log(this);
+        
         // $("#selected-character").text(characterStats.attackHP);
 
 
@@ -89,7 +94,7 @@ $(document).ready(function () {
 
     }
 
-
+//try using children() and find() 
     function selectCharacter(character) {
 
         $(character).addClass("bg-success");
@@ -101,6 +106,8 @@ $(document).ready(function () {
         characterStats.attackAP = $(character).attr("data-ap");
         characterStats.attackBaseAP = $(character).attr("data-ap");
         characterStats.attackCAP = $(character).attr("data-cap");
+        
+
 
 
     }
