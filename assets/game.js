@@ -102,6 +102,7 @@ $(document).ready(function () {
         $(".card").not(character).addClass("bg-danger");
         $(".card").removeClass("preselect");
         $("#select-enemies").append($(".bg-danger"));
+        $("#enemy-title").text("Select First Enemy");
         characterStats.attackHP = $(character).attr("data-hp");
         characterStats.attackAP = $(character).attr("data-ap");
         characterStats.attackBaseAP = $(character).attr("data-ap");
