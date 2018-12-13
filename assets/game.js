@@ -17,9 +17,10 @@ $(document).ready(function () {
 
     var enemyChosen;
     var characterSelect;
-    var win=0;
+    var win = 0;
     var updateCharacterHp = "";
     var updateEnemyHp = "";
+    var gameOver = false;
 
 
     $(document).on("click", "#character-select .preselect", function () {
@@ -33,7 +34,7 @@ $(document).ready(function () {
         updateCharacterHp = $(this).find("#display-hp");
         console.log("Path to Character HP " + updateCharacterHp);
         console.log(this);
-        
+
         // $("#selected-character").text(characterStats.attackHP);
 
 
@@ -59,27 +60,32 @@ $(document).ready(function () {
         console.log("Enemy CAP " + enemyStats.enemyCAP);
         console.log("character HP " + characterStats.attackHP);
         console.log("Character AP " + characterStats.attackAP);
-        $(updateCharacterHp).html(characterStats.attackHP);
-        $(updateEnemyHp).html(enemyStats.enemyHP);
+        $(updateCharacterHp).html("HP " + characterStats.attackHP);
+        $(updateEnemyHp).html("HP "+ enemyStats.enemyHP);
 
-        if (enemyStats.enemyHP <= 0){
+        if (enemyStats.enemyHP <= 0) {
             $(enemyChosen).detach();
+            $("#attack-button").detach();
+            $("#defender-title").text("");
             win++;
-
         }
 
-        if (win===3){
+        if (win === 3) {
             $("#attack-button").detach();
             $("#defender-title").html("You WIN!");
             $("#enemy-title").html("");
+            gameOver = true;
         }
 
-        if (characterStats.attackHP <= 0){
+        if (characterStats.attackHP <= 0) {
             $(characterSelect).detach();
             $("#attack-button").detach();
+            $("#main-title").html("You LOSE!");
+            $("#enemy-title").html("");
+            gameOver = true;
 
         }
-    
+
     });
 
 
@@ -99,33 +105,36 @@ $(document).ready(function () {
 
     function selectEnemy(enemy) {
 
-        console.log("DANGER ON CLICK");
-        $(enemy).removeClass(".bg-danger");
-        $(enemy).addClass(".bg-dark");
-        $("#select-defender").append($(enemy));
-        $("#defender-title").text("Defender");
-        enemyStats.enemyHP = $(enemy).attr("data-hp");
-        enemyStats.enemyAP = $(enemy).attr("data-ap");
-        enemyStats.enemyCAP = $(enemy).attr("data-cap");
-        
+        if (!gameOver) {
 
+            console.log("DANGER ON CLICK");
+            $(enemy).removeClass(".bg-danger");
+            $(enemy).addClass(".bg-dark");
+            $("#select-defender").append($(enemy));
+            $("#defender-title").text("Defender");
+            $("#attack-div").html("<button type='button' id='attack-button' class='btn btn-primary mt-4 mb-4'>Attack</button>");
+            enemyStats.enemyHP = $(enemy).attr("data-hp");
+            enemyStats.enemyAP = $(enemy).attr("data-ap");
+            enemyStats.enemyCAP = $(enemy).attr("data-cap");
+        }
     }
 
     function selectCharacter(character) {
 
-        $(character).addClass("bg-success");
-        $(character).attr("id", "selected-character");
-        $(".card").not(character).addClass("bg-danger");
-        $(".card").removeClass("preselect");
-        $("#enemy-title").text("Select Enemy");
-        $("#select-enemies").append($(".bg-danger"));
-        $("#character-select").append(character);
-        characterStats.attackHP = $(character).attr("data-hp");
-        characterStats.attackAP = $(character).attr("data-ap");
-        characterStats.attackBaseAP = $(character).attr("data-ap");
-        characterStats.attackCAP = $(character).attr("data-cap");  
+        if (!gameOver) {
 
+            $(character).addClass("bg-success");
+            $(character).attr("id", "selected-character");
+            $(".card").not(character).addClass("bg-danger");
+            $(".card").removeClass("preselect");
+            $("#enemy-title").text("Select Enemy");
+            $("#select-enemies").append($(".bg-danger"));
+            $("#character-select").append(character);
+            characterStats.attackHP = $(character).attr("data-hp");
+            characterStats.attackAP = $(character).attr("data-ap");
+            characterStats.attackBaseAP = $(character).attr("data-ap");
+            characterStats.attackCAP = $(character).attr("data-cap");
+
+        }
     }
-
-
 })

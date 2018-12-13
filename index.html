@@ -22,65 +22,71 @@
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Select Character</h2>
+                <h2 id="main-title">Select Character</h2>
             </div>
         </div>
 
         <!-- Select from character -->
         <div class="row" id="character-select">
             <div class="col-lg-3">
-                <div class="card preselect bg-primary" style="width: 15rem;" data-hp="100" data-ap="20" data-cap="10" data-toggle="tooltip" data-placement="bottom" title="Attack: 100 Counter: 10">
+                <div class="card preselect bg-primary" style="width: 15rem;" data-hp="100" data-ap="20" data-cap="10"
+                    data-toggle="tooltip" data-placement="bottom" title="Attack: 100 Counter: 10">
                     <div class="text-light text-center">Mario</div>
                     <img class="card-img-top" src="assets/images/mario.png" alt="this is an image">
                     <div id="display-hp" class="card-footer text-center text-light">HP 100</div>
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="card preselect bg-primary" style="width: 15rem;" data-hp="100" data-ap="20" data-cap="10" data-toggle="tooltip"  data-placement="bottom" title="Attack: 100 Counter: 10">
+                <div class="card preselect bg-primary" style="width: 15rem;" data-hp="100" data-ap="20" data-cap="20"
+                    data-toggle="tooltip" data-placement="bottom" title="Attack: 100 Counter: 10">
                     <div class="text-light text-center">Link</div>
                     <img class="card-img-top" src="assets/images/link.png" alt="this is an image">
                     <div id="display-hp" class="card-footer text-center text-light">HP 100</div>
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="card preselect bg-primary" style="width: 15rem;"  data-hp="100" data-ap="20" data-cap="10" data-toggle="tooltip"  data-placement="bottom" title="Attack: 100 Counter: 10">
+                <div class="card preselect bg-primary" style="width: 15rem;" data-hp="150" data-ap="10" data-cap="30"
+                    data-toggle="tooltip" data-placement="bottom" title="Attack: 100 Counter: 10">
                     <div class="text-light text-center">Donkey Kong</div>
                     <img class="card-img-top" src="assets/images/kong.png" alt="this is an image">
-                    <div id="display-hp" class="card-footer text-center text-light">HP 100</div>
+                    <div id="display-hp" class="card-footer text-center text-light">HP 150</div>
                 </div>
             </div>
             <div class="col-lg-3">
-                <div class="card preselect bg-primary" style="width: 15rem;" data-hp="100" data-ap="20" data-cap="10" data-toggle="tooltip" data-placement="bottom" title="Attack: 100 Counter: 10">
+                <div class="card preselect bg-primary" style="width: 15rem;" data-hp="80" data-ap="40" data-cap="10"
+                    data-toggle="tooltip" data-placement="bottom" title="Attack: 100 Counter: 10">
                     <div class="text-light text-center">Fox</div>
                     <img class="card-img-top" src="assets/images/fox.png" alt="this is an image">
-                    <div id="display-hp" class="card-footer text-center text-light">HP 100</div>
+                    <div id="display-hp" class="card-footer text-center text-light">HP 80</div>
                 </div>
             </div>
         </div>
 
         <!-- attack button -->
-        <button type="button" id="attack-button" class="btn btn-primary mt-4 mb-4">Attack</button>
-    
-    <!-- defender row -->
-    <div class="row" >
-        <div class="col-lg-12 text-center" id="select-defender">
-            <h2 id="defender-title"></h2>
+        <div id="attack-div">
+
+        </div>
+
+        <!-- defender row -->
+        <div class="row">
+            <div class="col-lg-12 text-center" id="select-defender">
+                <h2 id="defender-title"></h2>
+            </div>
+        </div>
+
+
+        <!-- Moves not selected to this row -->
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 id="enemy-title"></h2>
+            </div>
+        </div>
+
+
+        <div class="row text-center" id="select-enemies">
+            <div class="col-lg-3 text-center"></div>
         </div>
     </div>
-
-    
-    <!-- Moves not selected to this row -->
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h2 id="enemy-title"></h2>
-        </div>
-    </div>
-
-
-    <div class="row text-center" id="select-enemies">
-        <div class="col-lg-3 text-center"></div>
-    </div>
-</div>
 
 
 
