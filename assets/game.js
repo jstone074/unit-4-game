@@ -21,6 +21,7 @@ $(document).ready(function () {
     var updateCharacterHp = "";
     var updateEnemyHp = "";
     var gameOver = false;
+    var counter = false;
 
 
     $(document).on("click", "#character-select .preselect", function () {
@@ -40,19 +41,22 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#select-enemies .bg-danger", function () {
+    if (!counter) {
+
+        $(document).on("click", "#select-enemies .bg-danger", function () {
 
 
-        selectEnemy(this);
-        enemyChosen = (this);
-        $(this).find("#display-hp").text(enemyStats.enemyHP);
-        updateEnemyHp = $(this).find("#display-hp");
-        console.log(enemyChosen);
-        console.log(enemyStats.enemyHP);
-        console.log(enemyStats.enemyAP);
-        console.log(enemyStats.enemyCAP);
+            selectEnemy(this);
+            enemyChosen = (this);
+            $(this).find("#display-hp").text(enemyStats.enemyHP);
+            updateEnemyHp = $(this).find("#display-hp");
+            console.log(enemyChosen);
+            console.log(enemyStats.enemyHP);
+            console.log(enemyStats.enemyAP);
+            console.log(enemyStats.enemyCAP);
 
-    });
+        });
+    }
 
     $(document).on("click", "#attack-button", function () {
         attackButton();
@@ -67,6 +71,8 @@ $(document).ready(function () {
             $(enemyChosen).detach();
             $("#attack-button").detach();
             $("#defender-title").text("");
+            $("#select-enemies").show();
+            $("#enemy-title").text("Select Enemy");
             win++;
         }
 
@@ -116,6 +122,11 @@ $(document).ready(function () {
             enemyStats.enemyHP = $(enemy).attr("data-hp");
             enemyStats.enemyAP = $(enemy).attr("data-ap");
             enemyStats.enemyCAP = $(enemy).attr("data-cap");
+            counter =true;
+            $("#select-enemies").hide();
+            $("#enemy-title").html("");
+            
+           
         }
     }
 
