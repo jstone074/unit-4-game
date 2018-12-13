@@ -16,17 +16,22 @@ $(document).ready(function () {
     };
 
     var enemyChosen;
-
-    var UpdateCharacterHp = "";
+    var characterSelect;
+    var win=0;
+    var updateCharacterHp = "";
+    var updateEnemyHp = "";
 
 
     $(document).on("click", "#character-select .preselect", function () {
         selectCharacter(this);
+        characterSelect = (this);
         console.log(this);
         console.log(characterStats.attackHP);
         console.log(characterStats.attackAP);
         console.log(characterStats.attackCAP);
         $(this).find("#display-hp").text(characterStats.attackHP);
+        updateCharacterHp = $(this).find("#display-hp");
+        console.log("Path to Character HP " + updateCharacterHp);
         console.log(this);
         
         // $("#selected-character").text(characterStats.attackHP);
@@ -39,6 +44,8 @@ $(document).ready(function () {
 
         selectEnemy(this);
         enemyChosen = (this);
+        $(this).find("#display-hp").text(enemyStats.enemyHP);
+        updateEnemyHp = $(this).find("#display-hp");
         console.log(enemyChosen);
         console.log(enemyStats.enemyHP);
         console.log(enemyStats.enemyAP);
@@ -52,9 +59,24 @@ $(document).ready(function () {
         console.log("Enemy CAP " + enemyStats.enemyCAP);
         console.log("character HP " + characterStats.attackHP);
         console.log("Character AP " + characterStats.attackAP);
+        $(updateCharacterHp).html(characterStats.attackHP);
+        $(updateEnemyHp).html(enemyStats.enemyHP);
 
         if (enemyStats.enemyHP <= 0){
             $(enemyChosen).detach();
+            win++;
+
+        }
+
+        if (win===3){
+            $("#attack-button").detach();
+            $("#defender-title").html("You WIN!");
+            $("#enemy-title").html("");
+        }
+
+        if (characterStats.attackHP <= 0){
+            $(characterSelect).detach();
+            $("#attack-button").detach();
 
         }
     
@@ -69,7 +91,6 @@ $(document).ready(function () {
         characterStats.attackHP = parseInt(characterStats.attackHP);
         characterStats.attackBaseAP = parseInt(characterStats.attackBaseAP);
         characterStats.attackAP = parseInt(characterStats.attackAP);
-
         enemyStats.enemyHP = (enemyStats.enemyHP - characterStats.attackAP);
         characterStats.attackHP = (characterStats.attackHP - enemyStats.enemyCAP);
         characterStats.attackAP = (characterStats.attackAP + characterStats.attackBaseAP);
@@ -77,10 +98,6 @@ $(document).ready(function () {
     }
 
     function selectEnemy(enemy) {
-
-        // enemyStats.enemyHP = "";
-        // enemyStats.enemyCAP = "";
-        // enemyStats.enemyAP = "";
 
         console.log("DANGER ON CLICK");
         $(enemy).removeClass(".bg-danger");
@@ -94,22 +111,19 @@ $(document).ready(function () {
 
     }
 
-//try using children() and find() 
     function selectCharacter(character) {
 
         $(character).addClass("bg-success");
         $(character).attr("id", "selected-character");
         $(".card").not(character).addClass("bg-danger");
         $(".card").removeClass("preselect");
+        $("#enemy-title").text("Select Enemy");
         $("#select-enemies").append($(".bg-danger"));
-        $("#enemy-title").text("Select First Enemy");
+        $("#character-select").append(character);
         characterStats.attackHP = $(character).attr("data-hp");
         characterStats.attackAP = $(character).attr("data-ap");
         characterStats.attackBaseAP = $(character).attr("data-ap");
-        characterStats.attackCAP = $(character).attr("data-cap");
-        
-
-
+        characterStats.attackCAP = $(character).attr("data-cap");  
 
     }
 
